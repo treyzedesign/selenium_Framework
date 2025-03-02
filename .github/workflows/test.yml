@@ -30,7 +30,7 @@ jobs:
         run: mvn test -Dsurefire.suiteXmlFiles=testng.xml
 
       - name: Upload Extent Report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ExtentReport
           path: Reports/ExtentReport.html
