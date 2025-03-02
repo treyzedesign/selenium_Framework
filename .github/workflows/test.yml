@@ -1,0 +1,28 @@
+name: Tests
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Install Edge and WebDriver
+        run: |
+          sudo apt update
+          sudo apt install -y microsoft-edge-stable
+          sudo apt install -y microsoft-edge-webdriver
+          edge --version
+          edgedriver --version
+
+      - name: Run TestNG Tests
+        run: mvn test -Dsurefire.suiteXmlFiles=testng.xml

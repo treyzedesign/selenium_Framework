@@ -22,7 +22,7 @@ public class FirstTestCase extends BaseTest {
         BillingAddress billingAddress = JacksonUtils.deserializeJson("BillingAddress.json", BillingAddress.class);
         Products products = new Products(1215);
         // Page objects
-        HomePage homePage = new HomePage(driver).load();
+        HomePage homePage = new HomePage(getDriver()).load();
         StorePage storePage = homePage.clickStoreLink();
         storePage.search("blue");
         Assert.assertEquals(storePage.getTitle(), "Search results: “blue”");

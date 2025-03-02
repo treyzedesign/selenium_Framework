@@ -7,6 +7,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -20,18 +21,22 @@ public class DriverManager {
                 WebDriverManager.chromedriver().cachePath("driver").setup();
                 ChromeOptions chromeOptions = new ChromeOptions();
                 chromeOptions.addArguments("--remote-allow-origins=*");
+//                chromeOptions.addArguments("--headless", "--disable-gpu", "--window-size=1920,1080", "--no-sandbox");
                 driver = new ChromeDriver(chromeOptions);
                 break;
 
             case "firefox":
                 WebDriverManager.firefoxdriver().cachePath("driver").setup();
-                driver = new FirefoxDriver();
+                FirefoxOptions firefoxOptions = new FirefoxOptions();
+                firefoxOptions.addArguments("--headless");
+                driver = new FirefoxDriver(firefoxOptions);
                 break;
 
             case "edge":
                 WebDriverManager.edgedriver().cachePath("driver").setup();
                 EdgeOptions options = new EdgeOptions();
                 options.addArguments("--remote-allow-origins=*");
+                options.addArguments("--headless", "--disable-gpu", "--window-size=1920,1080", "--no-sandbox");
                 driver = new EdgeDriver(options);
                 break;
 

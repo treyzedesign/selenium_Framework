@@ -15,10 +15,16 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 
 public class BaseTest {
-    protected WebDriver driver;
+    private static final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
     protected static ExtentReports extent;
     protected static ExtentTest test;
+    public static WebDriver getDriver() {
+        return driver.get();
+    }
 
+    public static void setDriver(WebDriver driverInstance) {
+        driver.set(driverInstance);
+    }
     @BeforeSuite
     public void setupReport() {
         extent = ExtentManager.getReportInstance();
@@ -26,9 +32,10 @@ public class BaseTest {
 
     @Parameters("browser")
     @BeforeClass
-    public void startDriver(@Optional("edge") String browser) {
-        driver = new DriverManager().init_driver(browser);
-        Logger.setDriver(driver);
+    public void startDriver(@Optional("chrome") String browser) {
+        WebDriver webDriver = new DriverManager().init_driver(browser);
+        setDriver(webDriver); // Store WebDriver in ThreadLocal
+        Logger.setDriver(getDriver());  // Ensure logging uses ThreadLocal WebDriver
     }
 
     @BeforeMethod
@@ -40,8 +47,9 @@ public class BaseTest {
     @AfterMethod
     public void tearDown(ITestResult result) {
         endTest(result);
-        if (driver != null) {
-            driver.quit();
+        if (getDriver() != null) {
+            getDriver().quit();
+            driver.remove(); // Remove ThreadLocal instance after quitting driver
         }
     }
 
