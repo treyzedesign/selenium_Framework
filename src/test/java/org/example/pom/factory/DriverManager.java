@@ -21,7 +21,7 @@ public class DriverManager {
                 WebDriverManager.chromedriver().cachePath("driver").setup();
                 ChromeOptions chromeOptions = new ChromeOptions();
                 chromeOptions.addArguments("--remote-allow-origins=*");
-                chromeOptions.addArguments("--headless", "--disable-gpu", "--window-size=1920,1080", "--no-sandbox");
+//                chromeOptions.addArguments("--headless", "--disable-gpu", "--window-size=1920,1080", "--no-sandbox");
                 driver = new ChromeDriver(chromeOptions);
                 break;
 

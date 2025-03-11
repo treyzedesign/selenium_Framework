@@ -15,11 +15,11 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 
 public class FirstTestCase extends BaseTest {
+    static BillingAddress billingAddress = new BillingAddress();
 
     @Test
     public void guestCheckoutUsingDirectBankTransfer() throws IOException {
         Logger.logInfo("starting test - guest Checkout Using Direct Bank Transfer");
-        BillingAddress billingAddress = JacksonUtils.deserializeJson("BillingAddress.json", BillingAddress.class);
         Products products = new Products(1215);
         // Page objects
         HomePage homePage = new HomePage(getDriver()).load();

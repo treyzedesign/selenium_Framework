@@ -3,7 +3,6 @@ package org.example.pom.base;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import org.example.pom.factory.DriverManager;
-import org.example.pom.objects.Driver;
 import org.example.pom.utils.ExtentManager;
 import org.example.pom.utils.JacksonUtils;
 import org.example.pom.utils.Logger;
@@ -57,6 +56,7 @@ public class BaseTest {
     public void tearDownReport() {
         extent.flush();
     }
+
     public void endTest(ITestResult result) {
         if (result.getStatus() == ITestResult.FAILURE) {
             Logger.logError("Test Failed: " + result.getThrowable().getMessage());
